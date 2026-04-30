@@ -4,16 +4,20 @@ A Claude Code skill for comprehensive frontend PR reviews. Specialized for Angul
 
 ## Installation
 
-### One-liner
+### Prerequisites
+
+- GitHub CLI (`gh`) installed and authenticated: `gh auth status`
+
+### One-liner (requires gh CLI)
 
 ```bash
-curl -sL https://raw.githubusercontent.com/praveen-degreed/fe-review-skill/main/install.sh | bash
+gh api repos/praveen-degreed/fe-review-skill/contents/install.sh --jq '.content' | base64 -d | bash
 ```
 
 ### Manual
 
 ```bash
-git clone https://github.com/praveen-degreed/fe-review-skill.git .claude/skills/review-prs
+gh repo clone praveen-degreed/fe-review-skill .claude/skills/review-prs
 ```
 
 ## Usage

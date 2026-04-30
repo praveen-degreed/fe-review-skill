@@ -1,20 +1,28 @@
 #!/bin/bash
 # Install fe-review-skill for Claude Code
+# Works with both public and private repos (uses gh CLI)
 
 set -e
 
 SKILL_DIR=".claude/skills/review-prs"
-REPO_URL="https://raw.githubusercontent.com/praveen-degreed/fe-review-skill/main"
+REPO="praveen-degreed/fe-review-skill"
 
 echo "Installing review-prs skill..."
 
+# Check if gh CLI is available
+if ! command -v gh &> /dev/null; then
+    echo "Error: gh CLI not found. Install with: brew install gh"
+    exit 1
+fi
+
 mkdir -p "$SKILL_DIR/references"
 
-curl -sL "$REPO_URL/SKILL.md" -o "$SKILL_DIR/SKILL.md"
-curl -sL "$REPO_URL/references/agent-prompts.md" -o "$SKILL_DIR/references/agent-prompts.md"
-curl -sL "$REPO_URL/references/decision-rules.md" -o "$SKILL_DIR/references/decision-rules.md"
-curl -sL "$REPO_URL/references/review-template.md" -o "$SKILL_DIR/references/review-template.md"
-curl -sL "$REPO_URL/references/deep-mode.md" -o "$SKILL_DIR/references/deep-mode.md"
+# Use gh api to download files (works for private repos)
+gh api "repos/$REPO/contents/SKILL.md" --jq '.content' | base64 -d > "$SKILL_DIR/SKILL.md"
+gh api "repos/$REPO/contents/references/agent-prompts.md" --jq '.content' | base64 -d > "$SKILL_DIR/references/agent-prompts.md"
+gh api "repos/$REPO/contents/references/decision-rules.md" --jq '.content' | base64 -d > "$SKILL_DIR/references/decision-rules.md"
+gh api "repos/$REPO/contents/references/review-template.md" --jq '.content' | base64 -d > "$SKILL_DIR/references/review-template.md"
+gh api "repos/$REPO/contents/references/deep-mode.md" --jq '.content' | base64 -d > "$SKILL_DIR/references/deep-mode.md"
 
 echo ""
 echo "Installed to $SKILL_DIR/"
