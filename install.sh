@@ -23,6 +23,7 @@ gh api "repos/$REPO/contents/references/agent-prompts.md" --jq '.content' | base
 gh api "repos/$REPO/contents/references/decision-rules.md" --jq '.content' | base64 -d > "$SKILL_DIR/references/decision-rules.md"
 gh api "repos/$REPO/contents/references/review-template.md" --jq '.content' | base64 -d > "$SKILL_DIR/references/review-template.md"
 gh api "repos/$REPO/contents/references/deep-mode.md" --jq '.content' | base64 -d > "$SKILL_DIR/references/deep-mode.md"
+gh api "repos/$REPO/contents/references/codebase-patterns.md" --jq '.content' | base64 -d > "$SKILL_DIR/references/codebase-patterns.md"
 
 echo ""
 echo "Installed to $SKILL_DIR/"
