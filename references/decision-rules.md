@@ -130,10 +130,33 @@ Any of the following triggers REQUEST CHANGES:
 - Missing @degreed/* prefix
 - Missing barrel exports
 
-### Code Reuse
+### Code Reuse & Duplication
 - Creating component when similar exists
 - Duplicate methods across services
 - Not using Apollo/shared components
+- Copy-pasted code blocks (DRY violation)
+- Reinventing existing utilities (stopEvent, isNullOrEmpty, formatDate, etc.)
+- Custom debounce/throttle instead of rxjs operators
+- Custom deep clone instead of structuredClone/getDeepCopy
+
+### Dead Code & Unused Variables
+- Unused variables in computed()/functions
+- Unreachable code after return/throw
+- Empty catch/if/else blocks
+- Commented-out code blocks (should be removed)
+- TODO/FIXME without ticket reference
+- Unused imports
+
+### Common Developer Mistakes
+- Custom stopEvent() instead of e.preventDefault()
+- filter()[0] instead of find()
+- filter().length instead of some()/every()
+- indexOf() !== -1 instead of includes()
+- || for defaults instead of ?? (nullish coalescing)
+- && chains instead of optional chaining ?.
+- document.querySelector instead of ViewChild
+- innerHTML instead of Angular binding
+- Observable<any> or Promise<any> return types
 
 ### Regression / Impact
 - Breaking changes to shared components without migration

@@ -80,6 +80,45 @@ TYPESCRIPT QUALITY:
 18. Strict null checking respected?
 19. Generics used appropriately?
 20. Use `unknown` instead of `any` when uncertain
+21. Observable<any> return types - must use proper interface
+22. Promise<any> return types - must use proper interface
+
+DEAD CODE & UNUSED VARIABLES:
+23. Unused variables in computed()/functions (assigned but never read)
+24. Unused imports
+25. Unreachable code after return/throw
+26. Empty blocks (catch, if, else)
+27. Commented-out code blocks (should be removed)
+28. TODO/FIXME without ticket reference
+
+COMMON DEVELOPER MISTAKES:
+29. Wrong event handling:
+    - Use e.preventDefault() not custom stopEvent()
+    - Use e.stopPropagation() for bubbling
+    - Don't create wrapper functions for native methods
+30. Reinventing existing utilities:
+    - Don't create custom isNullOrUndefined() - use ?? or ?.
+    - Don't create custom isEmpty() - use !array?.length
+    - Don't create custom deepClone() - use structuredClone()
+    - Don't create custom debounce/throttle - use rxjs debounceTime/throttleTime
+31. String manipulation:
+    - Use template literals not string concatenation
+    - Use includes() not indexOf() !== -1
+    - Use startsWith()/endsWith() not regex for simple checks
+32. Array methods:
+    - Use find() not filter()[0]
+    - Use some()/every() not filter().length
+    - Use flatMap() not map().flat()
+    - Use at(-1) not arr[arr.length - 1]
+33. Object handling:
+    - Use Object.entries/keys/values() not for...in
+    - Use optional chaining ?. not && chains
+    - Use nullish coalescing ?? not || for defaults
+    - Use spread {...obj} not Object.assign()
+34. DOM manipulation (anti-pattern):
+    - Don't use document.querySelector - use ViewChild
+    - Don't use innerHTML - use Angular binding
+    - Don't use classList.add/remove - use [class.x] binding
 
 CODE QUALITY:
 21. Clean, readable, well-structured?
@@ -258,10 +297,29 @@ NX MONOREPO (CRITICAL):
 8. No relative imports (../) across library boundaries
 9. New libraries have barrel exports (index.ts)
 
-DUPLICATE WORK - SEARCH BEFORE CREATING:
-10. Grep for similar existing implementations
+DUPLICATE WORK - SEARCH BEFORE CREATING (CRITICAL):
+10. Grep for similar existing implementations before creating new
 11. Check @degreed/apollo, libs/shared/ for reusable components
 12. Reuse: translateWithDefaults(), modal-helpers, existing pipes
+
+DETECT DUPLICATED CODE:
+13. Same method signature in multiple services (extract to shared)
+14. Same component template pattern (extract to shared component)
+15. Same validation logic (extract to shared validator)
+16. Same HTTP call pattern (check if API service already exists)
+17. Same computed/signal pattern (extract to shared utility)
+18. Copy-pasted code blocks (DRY violation)
+
+REINVENTED UTILITIES (flag these):
+19. Custom stopEvent() → use native e.preventDefault()/e.stopPropagation()
+20. Custom isNullOrEmpty() → use !value or value?.length
+21. Custom formatDate() → use DatePipe or existing formatters
+22. Custom sortArray() → use existing sortBy from @degreed/core/utils
+23. Custom deepCopy() → use structuredClone() or getDeepCopy()
+24. Custom guid/uuid() → use generateGuid from @degreed/core/utils
+25. Custom camelCase/snakeCase() → use camelCaseKeys from @degreed/core/utils
+26. Custom debounce() → use rxjs debounceTime
+27. Custom truncate() → use existing TruncatePipe
 
 COMPONENT SELECTION PRIORITY:
 13. Angular Material → Angular CDK → Apollo → Custom
