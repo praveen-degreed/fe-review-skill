@@ -297,10 +297,120 @@ TYPESCRIPT:
 6. Consolidate repeated code into helpers?
 7. Remove unnecessary intermediate variables?
 
+COMMON SIMPLIFICATION PATTERNS (flag these):
+
+8. Same method with if/else for different args → use || or ??
+   ```typescript
+   // BEFORE (verbose)
+   const msg = this.getProgressMessage();
+   if (msg) {
+     this.showAlert(msg);
+   } else {
+     this.showAlert(this.translate('Default', 'Key'));
+   }
+
+   // AFTER (simplified)
+   this.showAlert(this.getProgressMessage() || this.translate('Default', 'Key'));
+   ```
+
+9. Assign then immediately return → return directly
+   ```typescript
+   // BEFORE
+   const result = this.calculate(x);
+   return result;
+
+   // AFTER
+   return this.calculate(x);
+   ```
+
+10. Boolean comparison → use boolean directly
+    ```typescript
+    // BEFORE
+    if (isValid === true) { ... }
+    if (items.length > 0) { ... }
+
+    // AFTER
+    if (isValid) { ... }
+    if (items.length) { ... }
+    ```
+
+11. Ternary for boolean assignment → use expression
+    ```typescript
+    // BEFORE
+    const isActive = status === 'active' ? true : false;
+
+    // AFTER
+    const isActive = status === 'active';
+    ```
+
+12. If/else returning booleans → return condition
+    ```typescript
+    // BEFORE
+    if (condition) {
+      return true;
+    } else {
+      return false;
+    }
+
+    // AFTER
+    return condition;
+    ```
+
+13. Multiple if statements with same result → combine conditions
+    ```typescript
+    // BEFORE
+    if (a) { doSomething(); }
+    if (b) { doSomething(); }
+
+    // AFTER
+    if (a || b) { doSomething(); }
+    ```
+
+14. Negated condition with else → flip the condition
+    ```typescript
+    // BEFORE
+    if (!isValid) {
+      showError();
+    } else {
+      proceed();
+    }
+
+    // AFTER
+    if (isValid) {
+      proceed();
+    } else {
+      showError();
+    }
+    ```
+
+15. Long && chains in template → use computed signal
+    ```typescript
+    // BEFORE (in template)
+    @if (user && user.profile && user.profile.settings && user.profile.settings.enabled) {
+
+    // AFTER
+    isSettingsEnabled = computed(() => this.user()?.profile?.settings?.enabled ?? false);
+    @if (isSettingsEnabled()) {
+    ```
+
+16. Repeated method calls → cache in variable
+    ```typescript
+    // BEFORE
+    if (this.getItems().length > 0) {
+      this.process(this.getItems());
+    }
+
+    // AFTER
+    const items = this.getItems();
+    if (items.length) {
+      this.process(items);
+    }
+    ```
+
 RXJS:
-8. Simplify complex pipe chains?
-9. Nested subscribes → higher-order operators?
-10. Combine observables more elegantly?
+17. Simplify complex pipe chains?
+18. Nested subscribes → higher-order operators?
+19. Combine observables more elegantly?
 
 Focus ONLY on the diff. Be specific with file:line references.
 Only suggest changes that genuinely reduce complexity.
