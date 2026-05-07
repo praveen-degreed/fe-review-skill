@@ -1,6 +1,6 @@
 # fe-claude-skills
 
-Claude Code skills for Degreed frontend development. Covers the full cycle: write code right the first time, then verify with automated review.
+Claude Code skills for Degreed frontend development, built to the [Agent Skills](https://agentskills.io) open format. Covers the full cycle: write code right the first time, then verify with automated review.
 
 ## Skills
 
@@ -8,7 +8,7 @@ Claude Code skills for Degreed frontend development. Covers the full cycle: writ
 
 Condensed coding standards loaded at **every conversation start** via `.agent-instructions/`. Claude reads these before writing any code -- same rules that the PR review checks, but as positive guidance ("always do X") instead of negative flags ("you did X wrong").
 
-**Install target:** `.agent-instructions/fe-dev-guard.md` + registered in `.claude/CLAUDE.local.md` (local-only, not committed to your repo)
+**Install target:** `.claude/skills/dev-guard/` (Agent Skill) + `.agent-instructions/fe-dev-guard.md` (always-on) + registered in `.claude/CLAUDE.local.md` (local-only, not committed to your repo)
 
 ### review-prs (PR review)
 
@@ -67,10 +67,12 @@ Your shared `CLAUDE.md` is never modified. Each developer runs the install once 
 ```
 fe-claude-skills/
 ├── dev-guard/
-│   ├── fe-dev-guard.md          # Coding standards (loaded every session)
-│   └── install.sh               # Installs to .agent-instructions/
+│   ├── SKILL.md                 # Agent Skill definition (portable format)
+│   ├── references/
+│   │   └── fe-standards.md      # Full coding standards
+│   └── install.sh               # Installs skill + .agent-instructions/
 ├── review-prs/
-│   ├── SKILL.md                 # PR review skill definition
+│   ├── SKILL.md                 # Agent Skill definition (portable format)
 │   ├── install.sh               # Installs to .claude/skills/
 │   └── references/
 │       ├── agent-prompts.md     # 6 review agent prompts
@@ -79,9 +81,23 @@ fe-claude-skills/
 │       ├── deep-mode.md         # Team consensus logic
 │       ├── codebase-patterns.md # Degreed service patterns
 │       └── rxjs-patterns.md     # RxJS operator guide
+├── evals/
+│   ├── review-prs-triggers.json # Trigger eval queries for review-prs
+│   └── dev-guard-triggers.json  # Trigger eval queries for dev-guard
 ├── install-all.sh               # One-command setup
 └── README.md
 ```
+
+## Agent Skills Compliance
+
+Both skills follow the [Agent Skills specification](https://agentskills.io/specification):
+
+- **SKILL.md** with YAML frontmatter (`name`, `description`, `license`, `compatibility`, `metadata`)
+- **Progressive disclosure** — lightweight SKILL.md bodies with detailed `references/` loaded on demand
+- **Eval queries** in `evals/` for [description optimization](https://agentskills.io/skill-creation/optimizing-descriptions)
+- **`name` matches directory name** per the spec naming convention
+
+> **Note:** `review-prs` uses Claude Code-specific multi-agent features (`Agent`, `Team*`, `Task*` tools). The workflow phases can be followed manually by other agents, but parallel agent execution requires Claude Code.
 
 ## Updating
 

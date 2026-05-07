@@ -1,15 +1,21 @@
 ---
 name: review-prs
-description: "Frontend PR review with GitHub integration. Reviews Angular/TypeScript PRs for patterns, accessibility, Apollo design system, and test quality. Use when asked to review a PR, check a PR, or provide a GitHub PR URL. Automatically posts APPROVE or REQUEST CHANGES to GitHub."
-argument-hint: "[--deep] <PR_URL> [<PR_URL2> ...]"
-allowed-tools: Bash, Read, Glob, Grep, Agent, Task*, Team*
-handoffs:
-  - label: Run Tests
-    agent: dgx-test-runner
-    prompt: Run tests for the files changed in this PR
-  - label: Simplify Code
-    agent: simplify
-    prompt: Review the changed code for simplification opportunities
+description: >
+  Frontend PR review with GitHub integration for Angular 20+/TypeScript codebases.
+  Reviews patterns, accessibility (WCAG 2.2 AA), Apollo design system, RxJS, memory
+  leaks, and test quality. Use when asked to review a PR, check a PR, or given a
+  GitHub PR URL — even without the word "review." Posts APPROVE or REQUEST CHANGES
+  directly to GitHub. Not for backend PRs, docs-only changes, or generated/lock files.
+license: MIT
+compatibility: >
+  Requires GitHub CLI (gh) installed and authenticated. Designed for Claude Code
+  with multi-agent support (Agent, Team*, Task* tools).
+allowed-tools: Bash Read Glob Grep Agent Task* Team*
+metadata:
+  author: praveen-degreed
+  version: "1.0"
+  argument-hint: "[--deep] <PR_URL> [<PR_URL2> ...]"
+  handoffs: "dgx-test-runner (Run Tests), simplify (Simplify Code)"
 ---
 
 # Review PRs (Frontend)
