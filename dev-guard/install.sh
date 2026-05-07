@@ -1,10 +1,12 @@
 #!/bin/bash
-# Install dev-guard -- development-time coding standards for Claude Code
-# Installs to .agent-instructions/ and registers in .claude/CLAUDE.local.md (local-only, not committed)
+# Install dev-guard -- development-time coding standards
+# Installs SKILL.md + references to .claude/skills/dev-guard/ (skill format)
+# Also installs fe-standards.md to .agent-instructions/ for always-on loading in Claude Code
 set -e
 
 REPO="praveen-degreed/fe-claude-skills"
-TARGET=".agent-instructions/fe-dev-guard.md"
+SKILL_DIR=".claude/skills/dev-guard"
+AGENT_INSTRUCTIONS_TARGET=".agent-instructions/fe-dev-guard.md"
 LOCAL_MD=".claude/CLAUDE.local.md"
 GUARD_REF='- **`.agent-instructions/fe-dev-guard.md`** - FE development guard: Angular, TypeScript, RxJS, a11y, security, testing rules enforced during coding. READ THIS before writing any code.'
 
@@ -15,14 +17,18 @@ if ! command -v gh &> /dev/null; then
     exit 1
 fi
 
-# Ensure directories exist
-mkdir -p .agent-instructions
-mkdir -p .claude
+# Install as Agent Skill (portable format)
+mkdir -p "$SKILL_DIR/references"
+gh api "repos/$REPO/contents/dev-guard/SKILL.md" --jq '.content' | base64 -d > "$SKILL_DIR/SKILL.md"
+gh api "repos/$REPO/contents/dev-guard/references/fe-standards.md" --jq '.content' | base64 -d > "$SKILL_DIR/references/fe-standards.md"
+echo "Installed skill to $SKILL_DIR/"
 
-# Download the guard file
-gh api "repos/$REPO/contents/dev-guard/fe-dev-guard.md" --jq '.content' | base64 -d > "$TARGET"
+# Also install to .agent-instructions/ for always-on loading in Claude Code
+mkdir -p .agent-instructions
+gh api "repos/$REPO/contents/dev-guard/references/fe-standards.md" --jq '.content' | base64 -d > "$AGENT_INSTRUCTIONS_TARGET"
 
 # Add reference to .claude/CLAUDE.local.md (local-only, not committed to repo)
+mkdir -p .claude
 if [ -f "$LOCAL_MD" ]; then
     if ! grep -q "fe-dev-guard.md" "$LOCAL_MD"; then
         echo "" >> "$LOCAL_MD"
@@ -43,8 +49,10 @@ LOCALEOF
 fi
 
 echo ""
-echo "Installed to $TARGET"
-echo "Registered in $LOCAL_MD (local-only, not committed)"
+echo "Installed to:"
+echo "  $SKILL_DIR/ (Agent Skill format - portable)"
+echo "  $AGENT_INSTRUCTIONS_TARGET (always-on loading)"
+echo "  Registered in $LOCAL_MD (local-only, not committed)"
 echo ""
-echo "Claude will now read these rules at the start of every conversation."
-echo "Code written by Claude will follow these standards automatically."
+echo "Claude will read these rules at the start of every conversation."
+echo "Other agents can discover the skill via $SKILL_DIR/SKILL.md."

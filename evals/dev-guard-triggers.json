@@ -1,0 +1,102 @@
+[
+  {
+    "query": "I'm about to start working on a new Angular component, what standards should I follow?",
+    "should_trigger": true,
+    "notes": "Asking about coding standards before starting work"
+  },
+  {
+    "query": "Write a new component for the skills page",
+    "should_trigger": true,
+    "notes": "Starting frontend code — standards should be loaded"
+  },
+  {
+    "query": "What are our Angular coding conventions?",
+    "should_trigger": true,
+    "notes": "Asking about conventions"
+  },
+  {
+    "query": "Should I use @Input or input() for this component?",
+    "should_trigger": true,
+    "notes": "Angular pattern question covered by standards"
+  },
+  {
+    "query": "Add a search typeahead to the skills list",
+    "should_trigger": true,
+    "notes": "Feature work — RxJS standards should be active"
+  },
+  {
+    "query": "What's the correct RxJS operator for a form submit?",
+    "should_trigger": true,
+    "notes": "RxJS pattern question"
+  },
+  {
+    "query": "Create a reactive form for user settings",
+    "should_trigger": true,
+    "notes": "Form work — reactive form standards apply"
+  },
+  {
+    "query": "How should I handle subscriptions to avoid memory leaks?",
+    "should_trigger": true,
+    "notes": "Memory leak prevention — covered by standards"
+  },
+  {
+    "query": "What accessibility requirements do we need to meet?",
+    "should_trigger": true,
+    "notes": "A11y standards question"
+  },
+  {
+    "query": "How do I use AuthService correctly?",
+    "should_trigger": true,
+    "notes": "Service pattern question"
+  },
+  {
+    "query": "Review this PR: https://github.com/degreed/fe-workspace/pull/2601",
+    "should_trigger": false,
+    "notes": "PR review — review-prs skill, not dev-guard"
+  },
+  {
+    "query": "Run the unit tests for coach-builder",
+    "should_trigger": false,
+    "notes": "Test execution — dgx-test-runner skill"
+  },
+  {
+    "query": "Deploy the application to staging",
+    "should_trigger": false,
+    "notes": "DevOps task, not coding standards"
+  },
+  {
+    "query": "What's the git workflow for creating a feature branch?",
+    "should_trigger": false,
+    "notes": "Git workflow, not coding standards"
+  },
+  {
+    "query": "Help me set up my local development environment",
+    "should_trigger": false,
+    "notes": "Setup task, not coding standards"
+  },
+  {
+    "query": "Write a Python script to process our CSV data",
+    "should_trigger": false,
+    "notes": "Backend/non-Angular work"
+  },
+  {
+    "query": "Update the CI pipeline configuration",
+    "should_trigger": false,
+    "notes": "CI/CD, not frontend coding"
+  },
+  {
+    "query": "What database schema should we use for the new feature?",
+    "should_trigger": false,
+    "notes": "Backend/database question"
+  },
+  {
+    "query": "Create a Figma design for the new dashboard",
+    "should_trigger": false,
+    "notes": "Design task, not coding"
+  },
+  {
+    "query": "Write documentation for the API endpoints",
+    "should_trigger": false,
+    "notes": "API docs, not frontend coding standards"
+  }
+]

@@ -1,0 +1,102 @@
+[
+  {
+    "query": "Review this PR: https://github.com/degreed/fe-workspace/pull/2601",
+    "should_trigger": true,
+    "notes": "Explicit review request with PR URL"
+  },
+  {
+    "query": "Can you check this PR for me? https://github.com/degreed/fe-workspace/pull/2601",
+    "should_trigger": true,
+    "notes": "Casual review request with URL"
+  },
+  {
+    "query": "https://github.com/degreed/fe-workspace/pull/2601",
+    "should_trigger": true,
+    "notes": "Just a PR URL, no explicit request"
+  },
+  {
+    "query": "/review-prs https://github.com/degreed/fe-workspace/pull/2601",
+    "should_trigger": true,
+    "notes": "Direct skill invocation"
+  },
+  {
+    "query": "I just opened a PR, can you take a look and make sure everything's good?",
+    "should_trigger": true,
+    "notes": "Implicit review request without URL (agent should ask for URL)"
+  },
+  {
+    "query": "Review the Angular component changes in PR #2601",
+    "should_trigger": true,
+    "notes": "Review request mentioning Angular"
+  },
+  {
+    "query": "Check if this PR follows our accessibility standards https://github.com/degreed/fe-workspace/pull/2601",
+    "should_trigger": true,
+    "notes": "A11y-focused review request"
+  },
+  {
+    "query": "Can you do a deep review of this? https://github.com/degreed/fe-workspace/pull/2601",
+    "should_trigger": true,
+    "notes": "Deep mode review request"
+  },
+  {
+    "query": "Is this PR ready to merge? https://github.com/degreed/fe-workspace/pull/2601",
+    "should_trigger": true,
+    "notes": "Merge-readiness check implies review"
+  },
+  {
+    "query": "Look over my changes before I submit https://github.com/degreed/fe-workspace/pull/2601",
+    "should_trigger": true,
+    "notes": "Pre-submit check"
+  },
+  {
+    "query": "Write a new Angular component for user profile settings",
+    "should_trigger": false,
+    "notes": "Feature development, not a PR review"
+  },
+  {
+    "query": "Fix the failing unit tests in the coach-builder module",
+    "should_trigger": false,
+    "notes": "Test fixing, not review"
+  },
+  {
+    "query": "How do I use the DialogService from Apollo?",
+    "should_trigger": false,
+    "notes": "API question, not a review"
+  },
+  {
+    "query": "Run the tests for the files I just changed",
+    "should_trigger": false,
+    "notes": "Test runner request — dgx-test-runner skill"
+  },
+  {
+    "query": "Create a PR for my current changes",
+    "should_trigger": false,
+    "notes": "PR creation, not review"
+  },
+  {
+    "query": "Refactor this service to use signals instead of BehaviorSubject",
+    "should_trigger": false,
+    "notes": "Refactoring task, not review"
+  },
+  {
+    "query": "What are the RxJS best practices for search typeahead?",
+    "should_trigger": false,
+    "notes": "Knowledge question — dev-guard skill territory"
+  },
+  {
+    "query": "Check the accessibility of my login form component",
+    "should_trigger": false,
+    "notes": "A11y check on code, not a PR — dgx-a11y-warn skill"
+  },
+  {
+    "query": "Help me debug why my subscription is leaking memory",
+    "should_trigger": false,
+    "notes": "Debugging task, not review"
+  },
+  {
+    "query": "Simplify the code in coach-builder-advanced-tab.component.ts",
+    "should_trigger": false,
+    "notes": "Simplification task — simplify skill"
+  }
+]
